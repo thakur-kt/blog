@@ -1,0 +1,1 @@
+<h2>wallet amount: {{$amount}}</h2>

@@ -21,6 +21,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        // \App\Http\Middleware\First::class
     ];
 
     /**
@@ -40,10 +41,15 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+        'custom'=>[
+        \App\Http\Middleware\First::class,
+       \App\Http\Middleware\Second::class,
+       \App\Http\Middleware\Third::class
+        ]
     ];
 
     /**
@@ -63,5 +69,19 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        // 'first'=>\App\Http\Middleware\First::class,
+        'second'=>\App\Http\Middleware\Second::class,
+        // 'third'=>\App\Http\Middleware\Third::class,
+        'after'=>\App\Http\Middleware\After::class,
+        'terminate'=>\App\Http\Middleware\TerminatingMiddleware::class
+    ];
+
+    protected $middlewarePriority = [
+
+        //  \App\Http\Middleware\Third::class,
+         \App\Http\Middleware\Second::class,
+         \App\Http\Middleware\First::class,
+        //  \App\Http\Middleware\TerminatingMiddleware::class
+     
     ];
 }
